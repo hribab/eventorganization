@@ -1,11 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @organization.name %>
-</p>
-
-<h1>All events in the organization</h1>
+<h1> Results </h1>
 
 <table>
   <thead>
@@ -19,7 +12,7 @@
   </thead>
 
   <tbody>
-    <% @events.each do |event| %>
+    <% @revents.each do |event| %>
       <tr>
         <td><%= event.message %></td>
         <td><%= event.hostname %></td>
@@ -33,6 +26,10 @@
   </tbody>
 </table>
 
-<%= link_to 'Home', root_path %> |
-<%= link_to 'Edit', edit_organization_path(@organization) %> |
-<%= link_to 'Back', organizations_path %>ll
+
+
+<br>
+
+<%= link_to 'Home', root_path %>
+
+

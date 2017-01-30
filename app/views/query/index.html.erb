@@ -1,0 +1,59 @@
+
+<h1> Events, Organization, Hosts </h1>
+<hr>
+
+<%= link_to 'AllEvents', events_path %> |
+<%= link_to 'AllOrganizations', organizations_path %>
+<br>
+<br>
+<br>
+
+<h1> Custome query </h1>
+<p> Number of events and Hostname are optional. If Number of events are empty or invalid it returns all events in selected organization.</p>
+
+<hr>
+<br>
+
+<%= form_tag "query" do %>
+List top events #<%= text_field_tag "number", "" %>
+from Organization
+<%= select "organization", "id", Organization.all.collect{|u| [u.name, u.id]} %>
+form Host(Optional) <%= text_field_tag "hostname", "" %>
+  <%= submit_tag "Result" %>
+<% end %>
+
+<br>
+<br>
+<br>
+
+<h1>Listing all events</h1>
+<p> If you want to query  specific events based on Organization or Hostname, use Above ^ </p>
+<hr>
+<br>
+<table>
+  <thead>
+    <tr>
+      <th>Message</th>
+      <th>Hostname</th>
+      <th>Timestamp</th>
+      <th>Organization</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% Event.order(timestamp: :desc).each do |event| %>
+      <tr>
+        <td><%= event.message %></td>
+        <td><%= event.hostname %></td>
+        <td><%= event.timestamp %></td>
+        <td><%= event.organization.name %></td>
+        <td><%= link_to 'Show', event %></td>
+        <td><%= link_to 'Edit', edit_event_path(event) %></td>
+        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

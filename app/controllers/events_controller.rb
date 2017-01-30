@@ -6,20 +6,6 @@ class EventsController < ApplicationController
   def index
     @events = Event.all
   end
-
-  def root
-  end
-   
-  def custom
- 
-  params["number"] = Event.where(organization: params["organization"]["id"]).size  unless number_or_nil(params["number"])
-  if !params["hostname"].empty?
-    @revents = Event.where(organization: params["organization"]["id"], hostname: params["hostname"]).order(timestamp: :desc).limit(params["number"]) 
- else
-   @revents = Event.where(organization: params["organization"]["id"]).order(timestamp: :desc).limit(params["number"]) 
-  end
-
-end
   
   # GET /events/1
   # GET /events/1.json
@@ -77,11 +63,6 @@ end
 
   private
   
-  def number_or_nil(str)
-  	Integer(str)
-  rescue
-         nil
-   end
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])
@@ -89,7 +70,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-     p params
       params.require(:event).permit(:message, :hostname, :timestamp, :organization_id) 
-	end
+    end
 end
