@@ -1,0 +1,22 @@
+
+
+<h1> Events, Organization, Hosts </h1>
+<hr>
+
+<%= link_to 'AllEvents', events_path %>
+<%= link_to 'AllOrganizations', organizations_path %>
+<br>
+
+<h1> Custome query </h1>
+<p> Number of events and Hostname are optional. If Number of events are empty it returns all events in selected organization.</p>
+
+<hr>
+<br>
+
+<%= form_tag "events/custom" do %>
+List top events #<%= text_field_tag "number", "" %>
+from Organization 
+<%= select "organization", "id", Organization.all.collect{|u| [u.name, u.id]} %>
+form Host(Optional) <%= text_field_tag "hostname", "" %>
+  <%= submit_tag "Result" %>
+<% end %>
